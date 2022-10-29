@@ -21,14 +21,16 @@ function calculateFrame(milliseconds) {
     const fps = fpsSelect.value;
     const seconds = milliseconds / 1000.0;
 
-    return fps * seconds;
+    let fr = Math.round(fps * seconds);
+    let pad = "0"
+    return pad.substring(0, pad.length - fr.length) + fr;
 }
 
 function convertTimecode(timeCode) {
     const elements = timeCode.split(',');
     const [baseTime, milliseconds] = elements;
 
-    const frame = Math.round(calculateFrame(milliseconds));
+    const frame = calculateFrame(milliseconds);
 
     return `${baseTime}:${frame}`;
 }
@@ -51,7 +53,7 @@ function generateXLSData(data) {
         const tcIn = convertTimecode(startTime);
         const tcOut = convertTimecode(endTime);
 
-        return { id, tcIn, tcOut };
+        return { id, tcIn, tcOut, text };
     })
 }
 
