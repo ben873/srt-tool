@@ -13,7 +13,6 @@ function processSrt(rawData){
 }
 
 function generateCsv(data) {
-    console.log(data.map((line)=>(`${line.startTime},${line.startSeconds}`)).join("\n"));
     return data.map((line)=>(`${line.startTime},${line.startSeconds}`)).join("\n");
 }
 

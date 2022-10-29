@@ -205,8 +205,12 @@ function processSrt(rawData){
     
     var parser = new srt_parser_2__WEBPACK_IMPORTED_MODULE_0__["default"]();
     var result = parser.fromSrt(rawData);
-    console.log(result);
-    document.getElementById('responce').innerHTML = result;
+    console.log(generateCsv(result));
+    document.getElementById('responce').innerHTML = generateCsv(result);
+}
+
+function generateCsv(data) {
+    return data.map((line)=>(`${line.startTime},${line.startSeconds}`)).join("\n");
 }
 
 function getSrt(){
