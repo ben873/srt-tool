@@ -861,7 +861,7 @@ const SETTINGS_FOR_EXPORT = {
             },
             {
                 name: 'Line',
-                key: 'Text',
+                key: 'text',
             },
           ],
         }
@@ -982,14 +982,16 @@ function calculateFrame(milliseconds) {
     const fps = fpsSelect.value;
     const seconds = milliseconds / 1000.0;
 
-    return fps * seconds;
+    let fr = Math.round(fps * seconds);
+    let pad = "0"
+    return pad.substring(0, pad.length - fr.length) + fr;
 }
 
 function convertTimecode(timeCode) {
     const elements = timeCode.split(',');
     const [baseTime, milliseconds] = elements;
 
-    const frame = Math.round(calculateFrame(milliseconds));
+    const frame = calculateFrame(milliseconds);
 
     return `${baseTime}:${frame}`;
 }
