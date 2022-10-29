@@ -6,6 +6,7 @@
   "author": "Ben Dotson",
   "license": "MIT",
   "dependencies": {
+    "export-xlsx": "^0.1.4",
     "srt-parser-2": "^1.1.8"
   },
   "devDependencies": {
