@@ -1012,7 +1012,7 @@ function generateXLSData(data) {
         const tcIn = convertTimecode(startTime);
         const tcOut = convertTimecode(endTime);
 
-        return { id, tcIn, tcOut };
+        return { id, tcIn, tcOut, text };
     })
 }
 
