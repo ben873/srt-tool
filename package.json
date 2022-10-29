@@ -1,0 +1,20 @@
+{
+  "name": "srt",
+  "version": "1.0.0",
+  "description": "An srt to csv converter",
+  "main": "index.js",
+  "author": "Ben Dotson",
+  "license": "MIT",
+  "dependencies": {
+    "srt-parser-2": "^1.1.8"
+  },
+  "devDependencies": {
+    "webpack": "^5.74.0",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^4.11.1"
+  },
+  "scripts": {
+    "build": "webpack",
+    "dev-server": "webpack-dev-server"
+  }
+}
