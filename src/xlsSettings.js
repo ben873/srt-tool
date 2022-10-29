@@ -26,7 +26,7 @@ export const SETTINGS_FOR_EXPORT = {
             },
             {
                 name: 'Line',
-                key: 'Text',
+                key: 'text',
             },
           ],
         }
