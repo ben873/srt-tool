@@ -9,36 +9,33 @@
 
 		<!--MAIN CONTAIER FOR SITE-->
 
-		<div id="container">
+		<div id="container" class="parent">
 		
 
 			
 			<!--CONTENT AREA-->
-
-			<div id="main">
-				<textarea  id="input" ondragover="ondragoverHandler(event)" ondrop="onfilesdropHandler(event)"  ></textarea>
-				<br>
-				<br>
-				<br>
-				<select name="fps" id="fpsselect">
-					<option value="">--Choose FPS--</option>
-					<option value="23.98">23.98</option>
+			<div id="title" class="headchild">
+				<div id="headchild" class="child">
+				<h1>SRT Tool</h1>
+				<p>Convert sub rip files (.srt) to excel (.xlsx).</p>
+				</div>
+			</div>
+			<div id="imagediv" class="ddimage">
+				<div id="textboxdiv" class="child">
+					<textarea  id="textBox" class="hidden"></textarea>
+				</div>
+			</div>
+			<div id="optionsdiv" class="child">
+				<select name="fps" id="fpsselect" class="hidden">
+					<option value="">Frame Rate</option>
+					<option value="23.98">23.98 (23.976)</option>
 					<option value="24">24</option>
 					<option value="25">25</option>
 					<option value="29.97">29.97</option>
 					<option value="30">30</option>
 				</select>
-                <input type="submit" id="btn1"> 
-
-                <div id="responce">
-
-                </div>
-                
-            
-										
-				
+                <input type="button" value="Download" id="btn1" class="hidden">
 			</div>
-
 		</div>
         <script src="bundle.js"></script> 
 	</body>

@@ -1,26 +1,24 @@
 import srtParser2 from "srt-parser-2";
 import ExcelExport from 'export-xlsx';
 
-import { SETTINGS_FOR_EXPORT } from "./xlsSettings";
+import { settingsForExport } from "./xlsSettings";
 
-const textBox = document.getElementById('input');
+const textBox = document.getElementById('textBox');
 const submit = document.getElementById('btn1');
 const fpsSelect = document.getElementById('fpsselect');
-var srt = "";
-var parsedData;
+let srt = "";
+let parsedData;
 
 function processSrt(rawData){
-    
-    var parser = new srtParser2();
+    let parser = new srtParser2();
     parsedData = parser.fromSrt(rawData);
-    console.log(generateCsv(parsedData));
-    document.getElementById('responce').innerHTML = generateCsv(parsedData);
+    //console.log(generateCsv(parsedData));
+    //document.getElementById('responce').innerHTML = generateCsv(parsedData);
 }
 
 function calculateFrame(milliseconds) {
     const fps = fpsSelect.value;
     const seconds = milliseconds / 1000.0;
-
     let fr = Math.round(fps * seconds);
     if (fr<10){
         return `0${fr}`;
@@ -70,33 +68,48 @@ function downloadXLS() {
     ];
 
     const excelExport = new ExcelExport();
-    excelExport.downloadExcel(SETTINGS_FOR_EXPORT, data);
+    excelExport.downloadExcel(settingsForExport('Converted_SRT'), data);
 
 }
 
 function getSrt(){
     srt = textBox.value;
+    const fps = fpsSelect.value;
+    if (!srt){
+        alert('No SRT data provided.');
+        return;
+    }
+    if ((fps != 23.98 )&&(fps != 24)&&(fps != 25)&&(fps != 29.97)&&(fps != 30)){
+        alert('Please slect the frames per second of your video.');
+        return;
+    }
     processSrt(srt);
     downloadXLS();
 }
 
-function ondragoverHandler(event) {
+function onDragoverHandler(event) {
  
     event.preventDefault();
+    document.body.classList.add('purple');
 }
    
    
    
-function onfilesdropHandler(event){
-   
-   
+function onFilesDropHandler(event){
     event.stopPropagation(); 
     event.preventDefault();
-    var files = event.dataTransfer.files;
+    let textBox = document.getElementById('textBox');
+    let fpsDrop = document.getElementById('fpsselect');
+    let button = document.getElementById('btn1');
+    textBox.classList.remove('hidden');
+    fpsDrop.classList.remove('hidden');
+    button.classList.remove('hidden');
+    document.body.classList.remove('purple');
+    let files = event.dataTransfer.files;
     for (var i = 0, f; f = files[i]; i++) {
     let reader = new FileReader();
     reader.readAsText(f);
-    reader.onload = function() { document.getElementById('input').value = reader.result; };
+    reader.onload = function() { textBox.value = reader.result; };
     }
       
       
@@ -104,3 +117,7 @@ function onfilesdropHandler(event){
 
 
 submit.addEventListener('click', getSrt);
+document.addEventListener('dragover', onDragoverHandler);
+document.addEventListener("drop", onFilesDropHandler);
+
+
