@@ -846,22 +846,22 @@ const settingsForExport = function(fileName) {
             tableSettings: {
               table1: {
                 headerDefinition: [
-                  {
-                    name: 'Sub Id',
-                    key: 'id',
-                  },
-                  {
-                      name: 'Timecode In',
-                      key: 'tcIn',
-                  },
-                  {
-                      name: 'Timecode OUT',
-                      key: 'tcOut',
-                  },
-                  {
-                      name: 'Line',
-                      key: 'text',
-                  },
+                    {
+                        name: 'Sub Id',
+                        key: 'id',
+                    },
+                    {
+                        name: 'Timecode In',
+                        key: 'tcIn',
+                    },
+                    {
+                        name: 'Timecode Out',
+                        key: 'tcOut',
+                    },
+                    {
+                        name: 'Line',
+                        key: 'text',
+                    },
                 ],
               }
             }
@@ -1000,6 +1000,7 @@ __webpack_require__.r(__webpack_exports__);
 
 const textBox = document.getElementById('textBox');
 const submit = document.getElementById('btn1');
+const another = document.getElementById('btn2');
 const fpsSelect = document.getElementById('fpsselect');
 let srt = "";
 let parsedData;
@@ -1078,6 +1079,12 @@ function getSrt(){
         alert('Please slect the frames per second of your video.');
         return;
     }
+    let fpsDrop = document.getElementById('fpsselect');
+    let button = document.getElementById('btn1');
+    let btn2 = document.getElementById('btn2');
+    fpsDrop.classList.add('hidden');
+    button.classList.add('hidden');
+    btn2.classList.remove('hidden');
     processSrt(srt);
     downloadXLS();
 }
@@ -1086,6 +1093,11 @@ function onDragoverHandler(event) {
  
     event.preventDefault();
     document.body.classList.add('purple');
+}
+
+function dragOverOff(event) {
+    event.preventDefault();
+    document.body.classList.remove('purple');
 }
    
    
@@ -1110,10 +1122,16 @@ function onFilesDropHandler(event){
       
 }
 
+function reloadPage() {
+    location.reload();
+}
+
 
 submit.addEventListener('click', getSrt);
 document.addEventListener('dragover', onDragoverHandler);
+document.addEventListener('dragleave', dragOverOff);
 document.addEventListener("drop", onFilesDropHandler);
+another.addEventListener('click', reloadPage)
 
 
 
