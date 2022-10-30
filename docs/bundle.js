@@ -830,45 +830,79 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "SETTINGS_FOR_EXPORT": () => (/* binding */ SETTINGS_FOR_EXPORT)
+/* harmony export */   "settingsForExport": () => (/* binding */ settingsForExport)
 /* harmony export */ });
 /* harmony import */ var export_xlsx__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(2);
 
-
-// Export settings
-const SETTINGS_FOR_EXPORT = {
-  // Table settings
-  fileName: 'example',
-  workSheets: [
-    {
-      sheetName: 'example',
-      startingRowNumber: 1,
-      gapBetweenTwoTables: 0,
-      tableSettings: {
-        table1: {
-          headerDefinition: [
-            {
-              name: 'Sub Id',
-              key: 'id',
-            },
-            {
-                name: 'Timecode In',
-                key: 'tcIn',
-            },
-            {
-                name: 'Timecode OUT',
-                key: 'tcOut',
-            },
-            {
-                name: 'Line',
-                key: 'text',
-            },
-          ],
-        }
+const settingsForExport = function(fileName) {
+    return {
+        // Table settings
+        fileName: fileName,
+        workSheets: [
+          {
+            sheetName: 'example',
+            startingRowNumber: 1,
+            gapBetweenTwoTables: 0,
+            tableSettings: {
+              table1: {
+                headerDefinition: [
+                  {
+                    name: 'Sub Id',
+                    key: 'id',
+                  },
+                  {
+                      name: 'Timecode In',
+                      key: 'tcIn',
+                  },
+                  {
+                      name: 'Timecode OUT',
+                      key: 'tcOut',
+                  },
+                  {
+                      name: 'Line',
+                      key: 'text',
+                  },
+                ],
+              }
+            }
+          },
+        ],
       }
-    },
-  ],
-};
+}
+// Export settings
+// export const SETTINGS_FOR_EXPORT = {
+//   // Table settings
+//   fileName: 'example',
+//   workSheets: [
+//     {
+//       sheetName: 'example',
+//       startingRowNumber: 1,
+//       gapBetweenTwoTables: 0,
+//       tableSettings: {
+//         table1: {
+//           headerDefinition: [
+//             {
+//               name: 'Sub Id',
+//               key: 'id',
+//             },
+//             {
+//                 name: 'Timecode In',
+//                 key: 'tcIn',
+//             },
+//             {
+//                 name: 'Timecode OUT',
+//                 key: 'tcOut',
+//             },
+//             {
+//                 name: 'Line',
+//                 key: 'text',
+//             },
+//           ],
+//         }
+//       }
+//     },
+//   ],
+// };
 
 /***/ })
 /******/ 	]);
@@ -964,24 +998,22 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-const textBox = document.getElementById('input');
+const textBox = document.getElementById('textBox');
 const submit = document.getElementById('btn1');
 const fpsSelect = document.getElementById('fpsselect');
-var srt = "";
-var parsedData;
+let srt = "";
+let parsedData;
 
 function processSrt(rawData){
-    
-    var parser = new srt_parser_2__WEBPACK_IMPORTED_MODULE_0__["default"]();
+    let parser = new srt_parser_2__WEBPACK_IMPORTED_MODULE_0__["default"]();
     parsedData = parser.fromSrt(rawData);
-    console.log(generateCsv(parsedData));
-    document.getElementById('responce').innerHTML = generateCsv(parsedData);
+    //console.log(generateCsv(parsedData));
+    //document.getElementById('responce').innerHTML = generateCsv(parsedData);
 }
 
 function calculateFrame(milliseconds) {
     const fps = fpsSelect.value;
     const seconds = milliseconds / 1000.0;
-
     let fr = Math.round(fps * seconds);
     if (fr<10){
         return `0${fr}`;
@@ -1031,33 +1063,48 @@ function downloadXLS() {
     ];
 
     const excelExport = new export_xlsx__WEBPACK_IMPORTED_MODULE_1__["default"]();
-    excelExport.downloadExcel(_xlsSettings__WEBPACK_IMPORTED_MODULE_2__.SETTINGS_FOR_EXPORT, data);
+    excelExport.downloadExcel((0,_xlsSettings__WEBPACK_IMPORTED_MODULE_2__.settingsForExport)('Converted_SRT'), data);
 
 }
 
 function getSrt(){
     srt = textBox.value;
+    const fps = fpsSelect.value;
+    if (!srt){
+        alert('No SRT data provided.');
+        return;
+    }
+    if ((fps != 23.98 )&&(fps != 24)&&(fps != 25)&&(fps != 29.97)&&(fps != 30)){
+        alert('Please slect the frames per second of your video.');
+        return;
+    }
     processSrt(srt);
     downloadXLS();
 }
 
-function ondragoverHandler(event) {
+function onDragoverHandler(event) {
  
     event.preventDefault();
+    document.body.classList.add('purple');
 }
    
    
    
-function onfilesdropHandler(event){
-   
-   
+function onFilesDropHandler(event){
     event.stopPropagation(); 
     event.preventDefault();
-    var files = event.dataTransfer.files;
+    let textBox = document.getElementById('textBox');
+    let fpsDrop = document.getElementById('fpsselect');
+    let button = document.getElementById('btn1');
+    textBox.classList.remove('hidden');
+    fpsDrop.classList.remove('hidden');
+    button.classList.remove('hidden');
+    document.body.classList.remove('purple');
+    let files = event.dataTransfer.files;
     for (var i = 0, f; f = files[i]; i++) {
     let reader = new FileReader();
     reader.readAsText(f);
-    reader.onload = function() { document.getElementById('input').value = reader.result; };
+    reader.onload = function() { textBox.value = reader.result; };
     }
       
       
@@ -1065,6 +1112,10 @@ function onfilesdropHandler(event){
 
 
 submit.addEventListener('click', getSrt);
+document.addEventListener('dragover', onDragoverHandler);
+document.addEventListener("drop", onFilesDropHandler);
+
+
 
 })();
 
