@@ -80,5 +80,27 @@ function getSrt(){
     downloadXLS();
 }
 
+function ondragoverHandler(event) {
+ 
+    event.preventDefault();
+}
+   
+   
+   
+function onfilesdropHandler(event){
+   
+   
+    event.stopPropagation(); 
+    event.preventDefault();
+    var files = event.dataTransfer.files;
+    for (var i = 0, f; f = files[i]; i++) {
+    let reader = new FileReader();
+    reader.readAsText(f);
+    reader.onload = function() { document.getElementById('input').value = reader.result; };
+    }
+      
+      
+}
+
 
 submit.addEventListener('click', getSrt);

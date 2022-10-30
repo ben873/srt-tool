@@ -2,7 +2,7 @@
 <!DOCTYPE HTML><!-- HTML v5-->
 <html>
 	<head>
-		<link rel="stylesheet" href="/css/style.css">
+		<link rel="stylesheet" href="style.css">
 	  </head>
 
 	<body>
@@ -16,11 +16,9 @@
 			<!--CONTENT AREA-->
 
 			<div id="main">
-                
-                <textarea id="input" name="inputbox" rows="20" cols="80"></textarea>
+				<textarea  id="input" ondragover="ondragoverHandler(event)" ondrop="onfilesdropHandler(event)"  ></textarea>
 				<br>
 				<br>
-				<label for="fpsselect">Choose FPS:</label>
 				<br>
 				<select name="fps" id="fpsselect">
 					<option value="">--Choose FPS--</option>

@@ -29,6 +29,12 @@ body {
     margin: 0 auto;
     text-align: center;
   }
+
+  textarea{
+ 
+    width: 750px;
+    height: 400px;
+  }
   
   @font-face {
     font-family: 'BankGothic-Md-BT-Medium';
