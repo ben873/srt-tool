@@ -11,22 +11,22 @@ export const settingsForExport = function(fileName) {
             tableSettings: {
               table1: {
                 headerDefinition: [
-                  {
-                    name: 'Sub Id',
-                    key: 'id',
-                  },
-                  {
-                      name: 'Timecode In',
-                      key: 'tcIn',
-                  },
-                  {
-                      name: 'Timecode OUT',
-                      key: 'tcOut',
-                  },
-                  {
-                      name: 'Line',
-                      key: 'text',
-                  },
+                    {
+                        name: 'Sub Id',
+                        key: 'id',
+                    },
+                    {
+                        name: 'Timecode In',
+                        key: 'tcIn',
+                    },
+                    {
+                        name: 'Timecode Out',
+                        key: 'tcOut',
+                    },
+                    {
+                        name: 'Line',
+                        key: 'text',
+                    },
                 ],
               }
             }
