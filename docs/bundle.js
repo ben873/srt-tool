@@ -983,8 +983,10 @@ function calculateFrame(milliseconds) {
     const seconds = milliseconds / 1000.0;
 
     let fr = Math.round(fps * seconds);
-    let pad = "0"
-    return pad.substring(0, pad.length - fr.length) + fr;
+    if (fr<10){
+        return `0${fr}`;
+    }
+    return `${fr}`;
 }
 
 function convertTimecode(timeCode) {
